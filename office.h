@@ -14,29 +14,32 @@ using BigInt = unsigned long long;
 class Office {
 public:
     Office() = default;
+    ~Office();
 
-    explicit Office(const std::vector<Person>& people);
+    explicit Office(const std::vector<Person *>& people);
 
-    void addPerson(const Person&);
+    void addPerson(Person*);
 
-    const std::list<Person> findByID(unsigned int id) const; // had to be optional, but empty list has wider support
+    const std::list<Person*> findByID(unsigned int id) const; // had to be optional, but empty list has wider support
 
-    const std::list<Person> findByName(const std::string&) const;
+    const std::list<Person*> findByName(const std::string&) const;
 
-    const std::list<Person> findBySurname(const std::string&) const;
+    const std::list<Person*> findBySurname(const std::string&) const;
 
-    const std::list<Person> findByPhoneNumber(BigInt number) const;
+    const std::list<Person*> findByPhoneNumber(BigInt number) const;
 
-    const std::list<Person> findByAge(int age) const;
+    const std::list<Person*> findByAge(int age) const;
 
-    std::vector<Person> getPeople() const;
+    std::vector<Person*> getPeople() const;
 
-    bool remove(const Person&);
+    const std::vector<Person*>& peekPeople() const;
+
+    bool remove(const Person*);
 
     friend std::ostream& operator<<(std::ostream&, const Office&);
 
 private:
-    std::vector<Person> _people;
+    std::vector<Person*> _people;
 };
 
 

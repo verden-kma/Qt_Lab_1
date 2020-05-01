@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <string.h>
 #include <iostream>
+#include <algorithm>
 #include "person.h"
 
 using namespace std;
@@ -13,7 +14,7 @@ const int Person::Properties = 5; // id, name, surname, age, phoneNumbers
 list<unsigned long long> Person::allNumbers;
 
 Person::Person(const string& name, const string& surname, int age,
-               unsigned long long phoneNumber) : _name(name), _surname(surname), _age(age),  _id(_freeID++) {
+               unsigned long long phoneNumber) : _name(name), _surname(surname), _age(age), _primaryNumber(phoneNumber),  _id(_freeID++) {
     if (age < 0 || age > 135) throw invalid_argument("correct age [0;135]");
     if (!phoneNumIsValid(phoneNumber)) throw invalid_argument("phone number duplicated");
     _phoneNumbers.push_back(phoneNumber);
@@ -82,7 +83,22 @@ const unsigned long long Person::getId() const {
     return _id;
 }
 
-const list<unsigned long long int>& Person::getPhoneNumbers() const {
+unsigned long long int Person::getPrimaryNumber() const {
+    return _primaryNumber;
+}
+
+bool Person::setPrimaryNumber(unsigned long long int nprn) {
+    _primaryNumber = nprn;
+    if (std::find(_phoneNumbers.begin(), _phoneNumbers.end(), nprn) != _phoneNumbers.end()) {
+        return false;
+    }
+    else {
+        _phoneNumbers.push_back(nprn);
+        return true;
+    }
+}
+
+const list<unsigned long long int>& Person::peekPhoneNumbers() const {
     return _phoneNumbers;
 }
 
@@ -90,6 +106,12 @@ bool Person::addPhoneNumber(unsigned long long int newNumber) {
     if (!phoneNumIsValid(newNumber)) return false;
     allNumbers.push_back(newNumber);
     _phoneNumbers.push_back(newNumber);
+    return true;
+}
+
+bool Person::removePhoneNumber(unsigned long long int number) {
+    if (_phoneNumbers.size() == 1) return false;
+    _phoneNumbers.remove(number);
     return true;
 }
 

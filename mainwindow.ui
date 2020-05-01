@@ -15,20 +15,10 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
-     <widget class="QTableView" name="customersTable"/>
-    </item>
-    <item row="6" column="0">
-     <widget class="QPushButton" name="deleteButton">
+    <item row="7" column="0">
+     <widget class="QPushButton" name="findButton">
       <property name="text">
-       <string>Delete</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QPushButton" name="editButton">
-      <property name="text">
-       <string>Edit</string>
+       <string>Find</string>
       </property>
      </widget>
     </item>
@@ -48,6 +38,23 @@
       </property>
       <property name="text">
        <string>Customers list</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QTableView" name="customersTable"/>
+    </item>
+    <item row="5" column="0">
+     <widget class="QPushButton" name="editButton">
+      <property name="text">
+       <string>Edit</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QPushButton" name="deleteButton">
+      <property name="text">
+       <string>Delete</string>
       </property>
      </widget>
     </item>

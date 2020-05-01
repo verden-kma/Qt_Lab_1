@@ -16,6 +16,11 @@ Office::Office(const std::vector<Person *>& people) {
     }
 }
 
+Office::~Office() {
+    for (Person* p : _people)
+        delete p;
+}
+
 void Office::addPerson(Person* p) {
     _people.push_back(p);
 }
@@ -90,6 +95,10 @@ const std::list<Person*> Office::findByPhoneNumber(BigInt number) const {
         peopleItr++;
     }
     return res;
+}
+
+const std::vector<Person*>&  Office::peekPeople() const {
+    return _people;
 }
 
 std::vector<Person*> Office::getPeople() const {

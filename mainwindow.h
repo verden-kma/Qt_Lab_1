@@ -27,6 +27,8 @@ private:
     Ui::MainWindow *ui;
     CustomPopup* cp;
     Office* office;
-    QAbstractTableModel* model;
+    QAbstractTableModel** const model; // const pointer to mutable pointer to QAbstractTableModel
+    QAbstractTableModel* mainModel;
+    QAbstractTableModel* filterModel;
 };
 #endif // MAINWINDOW_H

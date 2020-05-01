@@ -29,9 +29,20 @@ public:
 
     void setAge(int age);
 
+    unsigned long long int getPrimaryNumber() const;
+
+    /**
+     * @brief setPrimaryNumber
+     * @param nprn new prime number
+     * @return true if passed number is new, false if it is present in phoneNumberList
+     */
+    bool setPrimaryNumber(unsigned long long int nprn);
+
     bool addPhoneNumber(unsigned long long int newNumber);
 
-    const std::list<unsigned long long int>& getPhoneNumbers() const;
+    bool removePhoneNumber(unsigned long long int number);
+
+    const std::list<unsigned long long int>& peekPhoneNumbers() const;
 
     const char* infoExtract() const;
 
@@ -45,6 +56,7 @@ private:
     std::string _surname;
     unsigned char _age;
     unsigned int _id;
+    unsigned long long _primaryNumber;
 
     std::list<unsigned long long> _phoneNumbers;
 };

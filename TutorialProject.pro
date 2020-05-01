@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    comboboxitemdelegate.cpp \
     customersmodel.cpp \
     custompopup.cpp \
     main.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
     person.cpp
 
 HEADERS += \
+    comboboxitemdelegate.h \
     customersmodel.h \
     custompopup.h \
     mainwindow.h \

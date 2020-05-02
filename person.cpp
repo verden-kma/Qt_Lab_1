@@ -6,6 +6,7 @@
 #include <string.h>
 #include <iostream>
 #include <algorithm>
+#include <QRegularExpression>
 #include "person.h"
 
 using namespace std;
@@ -14,9 +15,9 @@ const int Person::Properties = 5; // id, name, surname, age, phoneNumbers
 list<unsigned long long> Person::allNumbers;
 
 Person::Person(const string& name, const string& surname, int age,
-               unsigned long long phoneNumber) : _name(name), _surname(surname), _age(age), _primaryNumber(phoneNumber),  _id(_freeID++) {
+               unsigned long long phoneNumber) : _id(_freeID++), _name(name), _surname(surname), _age(age), _primaryNumber(phoneNumber) {
     if (age < 0 || age > 135) throw invalid_argument("correct age [0;135]");
-    if (!phoneNumIsValid(phoneNumber)) throw invalid_argument("phone number duplicated");
+    if (!phoneNumIsNew(phoneNumber)) throw invalid_argument("phone number duplicated");
     _phoneNumbers.push_back(phoneNumber);
     allNumbers.push_back(phoneNumber);
 }
@@ -79,7 +80,7 @@ void Person::setAge(int age) {
     _age = age;
 }
 
-const unsigned long long Person::getId() const {
+unsigned long long Person::getId() const {
     return _id;
 }
 
@@ -98,12 +99,12 @@ bool Person::setPrimaryNumber(unsigned long long int nprn) {
     }
 }
 
-const list<unsigned long long int>& Person::peekPhoneNumbers() const {
+list<unsigned long long int>& Person::peekPhoneNumbers() {
     return _phoneNumbers;
 }
 
 bool Person::addPhoneNumber(unsigned long long int newNumber) {
-    if (!phoneNumIsValid(newNumber)) return false;
+    if (!phoneNumIsNew(newNumber)) return false;
     allNumbers.push_back(newNumber);
     _phoneNumbers.push_back(newNumber);
     return true;
@@ -115,7 +116,7 @@ bool Person::removePhoneNumber(unsigned long long int number) {
     return true;
 }
 
-bool Person::phoneNumIsValid(unsigned long long int newNumber) {
+bool Person::phoneNumIsNew(unsigned long long int newNumber) {
     auto phonesIterator = allNumbers.cbegin();
     while (phonesIterator != allNumbers.end()) {
         if (*phonesIterator == newNumber)
@@ -124,3 +125,24 @@ bool Person::phoneNumIsValid(unsigned long long int newNumber) {
     }
     return true;
 }
+
+bool Person::numberIsValid(const QString& newNum) {
+    static QRegularExpression rx("^\\d{11,13}$");
+    return rx.match(newNum).hasMatch();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

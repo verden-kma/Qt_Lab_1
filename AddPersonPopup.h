@@ -9,13 +9,13 @@ namespace Ui {
 class CustomPopup;
 }
 
-class CustomPopup : public QDialog
+class AddPersonPopup : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit CustomPopup(QWidget *parent = nullptr);
-    ~CustomPopup();
+    explicit AddPersonPopup(QWidget *parent = nullptr);
+    ~AddPersonPopup();
 
     void reject() override;
 

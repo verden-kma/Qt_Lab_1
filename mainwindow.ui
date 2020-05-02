@@ -47,7 +47,7 @@
     <item row="5" column="0">
      <widget class="QPushButton" name="editButton">
       <property name="text">
-       <string>Edit</string>
+       <string>Edit numbers</string>
       </property>
      </widget>
     </item>

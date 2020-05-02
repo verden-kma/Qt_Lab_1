@@ -6,9 +6,11 @@
 #include "customersmodel.h"
 #include "office.h"
 #include "comboboxitemdelegate.h"
+#include "AddPersonPopup.h"
+#include "PhoneEditor.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow), cp(nullptr), model(new QAbstractTableModel*), filterModel(nullptr)
+    : QMainWindow(parent), ui(new Ui::MainWindow), model(new QAbstractTableModel*)
 {
     ui->setupUi(this);
     office = new Office();
@@ -24,11 +26,12 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete cp;
+    delete addPopup;
     delete office;
     delete model;
     delete mainModel;
     delete filterModel;
+    delete phEdit;
 }
 
 void MainWindow::generateSampleData() {
@@ -56,10 +59,42 @@ void MainWindow::on_addButton_clicked()
 //        qDebug() << "No was pressed\n";
 //    }
     setEnabled(false);
-    if (cp == nullptr) {
-        cp = new CustomPopup(this);
+    if (addPopup == nullptr) {
+        addPopup = new AddPersonPopup(this);
     }
-    cp->setEnabled(true);
-    cp->show();
+    addPopup->setEnabled(true);
+    addPopup->show();
 }
+
+
+void MainWindow::on_editButton_clicked()
+{
+    QItemSelectionModel* sModel = ui->customersTable->selectionModel();
+    if (!sModel->hasSelection()) {
+        QMessageBox::critical(this, "Error", "No selected person");
+        return;
+    }
+//**************************************    ui->customersTable->update();
+    Person& selected = *office->peekPeople().at(sModel->selectedRows().first().row());
+    setEnabled(false);
+    if (phEdit == nullptr)
+        phEdit = new PhoneEditor(this);
+    phEdit->setPerson(selected);
+    phEdit->setEnabled(true);
+    phEdit->show();
+}
+
+void MainWindow::updateSelectedNumber() const {
+    qDebug() << ui->customersTable->selectionModel()->hasSelection();
+    int selectedRow = ui->customersTable->selectionModel()->selectedRows().first().row();
+    QModelIndex index = ui->customersTable->model()->index(selectedRow, 5);
+    emit ui->customersTable->model()->dataChanged(index, index);
+}
+
+
+
+
+
+
+
 

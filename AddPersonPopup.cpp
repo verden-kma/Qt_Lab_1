@@ -1,9 +1,8 @@
-#include "custompopup.h"
+#include "AddPersonPopup.h"
 #include "ui_custompopup.h"
-#include <QMainWindow>
 #include <QMessageBox>
 
-CustomPopup::CustomPopup(QWidget *parent) :
+AddPersonPopup::AddPersonPopup(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CustomPopup)
 {
@@ -14,19 +13,19 @@ CustomPopup::CustomPopup(QWidget *parent) :
     ui->surnameText->setValidator(nameValidator);
 }
 
-void CustomPopup::reject() {
-    static_cast<QMainWindow *>(parent())->setEnabled(true);
-    clearInputs();
+void AddPersonPopup::reject() {
+    static_cast<QWidget *>(parent())->setEnabled(true);
     hide();
+    clearInputs();
 }
 
-CustomPopup::~CustomPopup()
+AddPersonPopup::~AddPersonPopup()
 {
     delete ui;
     delete nameValidator;
 }
 
-void CustomPopup::on_pushButton_clicked()
+void AddPersonPopup::on_pushButton_clicked()
 {
     if (!checkNewCustomerData()) return;
     QString name = ui->nameText->text();
@@ -38,7 +37,7 @@ void CustomPopup::on_pushButton_clicked()
     hide();
 }
 
-bool CustomPopup::checkNewCustomerData() {
+bool AddPersonPopup::checkNewCustomerData() {
     QString value = ui->nameText->text();
     int len;
     if (ui->nameText->validator()->validate(value, len)) {
@@ -59,7 +58,7 @@ bool CustomPopup::checkNewCustomerData() {
     }
 
     value = ui->phoneText->text();
-    QRegularExpression re("\\+\\d{12,13}");
+    QRegularExpression re("\\d{11,13}");
     QRegularExpressionMatch match = re.match(value);
     if (!match.hasMatch()) {
         QMessageBox::critical(this, "Error", "Incorrect phone number pattern.");
@@ -68,7 +67,7 @@ bool CustomPopup::checkNewCustomerData() {
     return true;
 }
 
-void CustomPopup::clearInputs() {
+void AddPersonPopup::clearInputs() {
     ui->nameText->setText("");
     ui->surnameText->setText("");
     ui->ageSpinBox->setValue(0);

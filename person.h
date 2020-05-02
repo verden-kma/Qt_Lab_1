@@ -7,13 +7,14 @@
 
 #include <string>
 #include <list>
+class QString;
 
 class Person {
 public:
     static const int Properties;
     Person(const std::string& name, const std::string& surname, int age, unsigned long long phoneNumber);
 
-    const unsigned long long getId() const;
+    unsigned long long getId() const;
 
     bool hasPhoneNumber(unsigned long long number) const;
 
@@ -42,20 +43,22 @@ public:
 
     bool removePhoneNumber(unsigned long long int number);
 
-    const std::list<unsigned long long int>& peekPhoneNumbers() const;
+    std::list<unsigned long long int>& peekPhoneNumbers();
 
     const char* infoExtract() const;
+
+    static bool numberIsValid(const QString&);
 
 private:
     static unsigned int _freeID;
     static std::list<unsigned long long> allNumbers;
 
-    static bool phoneNumIsValid(unsigned long long int newNumber);
+    static bool phoneNumIsNew(unsigned long long int newNumber);
 
+    unsigned int _id;
     std::string _name;
     std::string _surname;
     unsigned char _age;
-    unsigned int _id;
     unsigned long long _primaryNumber;
 
     std::list<unsigned long long> _phoneNumbers;

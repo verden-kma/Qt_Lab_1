@@ -49,10 +49,10 @@ QVariant CustomersModel::headerData(int selection, Qt::Orientation orientation, 
         case 1: return QString("Name");
         case 2: return QString("Surname");
         case 3: return QString("Age");
-        case 4: return QString("Phone");
-        default: return QString("FixMe");
+        case 4: return QString("Primary number");
         }
     else return QString("%2").arg(selection + 1);
+    return QVariant();
 }
 
 Qt::ItemFlags CustomersModel::flags(const QModelIndex& index) const {

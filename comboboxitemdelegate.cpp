@@ -23,11 +23,6 @@ QWidget *ComboBoxItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
         cb->addItem(QString::fromStdString(std::to_string(*phoneIter)));
         phoneIter++;
     }
-
-//    const int row = index.row();
-//    cb->addItem(QString("phone %1").arg(row));
-//    cb->addItem(QString("phone %1").arg(row));
-//    cb->addItem(QString("phone %1").arg(row));
     return cb;
 }
 

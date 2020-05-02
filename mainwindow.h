@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "custompopup.h"
+class AddPersonPopup;
+class PhoneEditor;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,15 +21,19 @@ public:
 
     void generateSampleData();
 
+    void updateSelectedNumber() const;
 private slots:
     void on_addButton_clicked();
 
+    void on_editButton_clicked();
+
 private:
     Ui::MainWindow *ui;
-    CustomPopup* cp;
+    AddPersonPopup* addPopup = nullptr;
+    PhoneEditor* phEdit = nullptr;
     Office* office;
     QAbstractTableModel** const model; // const pointer to mutable pointer to QAbstractTableModel
     QAbstractTableModel* mainModel;
-    QAbstractTableModel* filterModel;
+    QAbstractTableModel* filterModel = nullptr;
 };
 #endif // MAINWINDOW_H

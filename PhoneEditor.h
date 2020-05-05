@@ -7,7 +7,7 @@
 class Person;
 
 namespace Ui {
-class PhoneEditer; // delete
+class PhoneEditor;
 }
 
 class PhoneEditor : public QDialog
@@ -31,7 +31,7 @@ private slots:
 private:
     void clearInputs();
 
-    Ui::PhoneEditer *ui;
+    Ui::PhoneEditor *ui;
     EditNumberModel editModel;
     Person* passedPerson;
 };

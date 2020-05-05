@@ -6,7 +6,7 @@
 
 PhoneEditor::PhoneEditor(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::PhoneEditer)
+    ui(new Ui::PhoneEditor)
 {
     ui->setupUi(this);
     ui->numList->setSelectionBehavior(QAbstractItemView::SelectRows);

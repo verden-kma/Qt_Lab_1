@@ -22,9 +22,9 @@ public:
 
     const std::list<Person*> findByID(unsigned int id) const; // had to be optional, but empty list has wider support
 
-    const std::list<Person*> findByName(const std::string&) const;
+    const std::list<Person*> findByName(const QString&) const;
 
-    const std::list<Person*> findBySurname(const std::string&) const;
+    const std::list<Person*> findBySurname(const QString&) const;
 
     const std::list<Person*> findByPhoneNumber(BigInt number) const;
 
@@ -32,7 +32,7 @@ public:
 
     std::vector<Person*> getPeople() const;
 
-    const std::vector<Person*>& peekPeople() const;
+    std::vector<Person*>& peekPeople();
 
     bool remove(const Person*);
 

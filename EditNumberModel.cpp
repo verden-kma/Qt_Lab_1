@@ -68,7 +68,6 @@ bool EditNumberModel::setData(const QModelIndex &index, const QVariant &value, i
 bool EditNumberModel::insertRows(int position, int rows, const QModelIndex &)
 {
     beginInsertRows(QModelIndex(), position, position+rows-1);
-
     for (int row = 0; row < rows; ++row) {
         currentNumbers.insert(position, "");
     }
@@ -80,7 +79,6 @@ bool EditNumberModel::insertRows(int position, int rows, const QModelIndex &)
 bool EditNumberModel::removeRows(int position, int rows, const QModelIndex &)
 {
     beginRemoveRows(QModelIndex(), position, position+rows-1);
-
     for (int row = 0; row < rows; ++row) {
         currentNumbers.removeAt(position);
     }

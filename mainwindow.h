@@ -19,7 +19,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void generateSampleData();
+    void updateCustomers(QString& name, QString surname, int age, unsigned long long phNumber);
 
     void updateSelectedNumber() const;
 private slots:
@@ -27,7 +27,10 @@ private slots:
 
     void on_editButton_clicked();
 
+    void on_deleteButton_clicked();
+
 private:
+    void generateSampleData();
     Ui::MainWindow *ui;
     AddPersonPopup* addPopup = nullptr;
     PhoneEditor* phEdit = nullptr;

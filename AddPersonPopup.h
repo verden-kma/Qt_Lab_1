@@ -4,9 +4,10 @@
 #include <QDialog>
 
 class QRegExpValidator;
+class MainWindow;
 
 namespace Ui {
-class CustomPopup;
+class AddPersonPopup;
 }
 
 class AddPersonPopup : public QDialog
@@ -14,7 +15,7 @@ class AddPersonPopup : public QDialog
     Q_OBJECT
 
 public:
-    explicit AddPersonPopup(QWidget *parent = nullptr);
+    explicit AddPersonPopup(QWidget *parent);
     ~AddPersonPopup();
 
     void reject() override;
@@ -25,8 +26,10 @@ private slots:
 private:
     void clearInputs();
     bool checkNewCustomerData();
-    Ui::CustomPopup *ui;
-    QRegExpValidator* nameValidator = nullptr;
+    Ui::AddPersonPopup *ui;
+    QRegExpValidator* nameValidator;
+    QRegExpValidator* numberValidator;
+    MainWindow& mw;
 };
 
 #endif // CUSTOMPOPUP_H

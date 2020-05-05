@@ -17,9 +17,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     AddPersonPopup.cpp \
+    ComboboxItemDelegate.cpp \
     EditNumberModel.cpp \
     PhoneEditor.cpp \
-    comboboxitemdelegate.cpp \
     customersmodel.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -28,9 +28,9 @@ SOURCES += \
 
 HEADERS += \
     AddPersonPopup.h \
+    ComboboxItemDelegate.h \
     EditNumberModel.h \
     PhoneEditor.h \
-    comboboxitemdelegate.h \
     customersmodel.h \
     mainwindow.h \
     office.h \

@@ -2,7 +2,7 @@
 // Created by Andrew on 20-Apr-20.
 //
 
-#include <cstring>
+#include <QString>
 #include <ostream>
 #include "office.h"
 
@@ -50,7 +50,7 @@ const list<Person*> Office::findByID(unsigned int id) const {
     return res;
 }
 
-const list<Person*> Office::findByName(const std::string& name) const {
+const list<Person*> Office::findByName(const QString& name) const {
     list<Person*> res;
     auto peopleItr = _people.begin();
     while (peopleItr != _people.end()) {
@@ -61,7 +61,7 @@ const list<Person*> Office::findByName(const std::string& name) const {
     return res;
 }
 
-const list<Person*> Office::findBySurname(const std::string& surname) const {
+const list<Person*> Office::findBySurname(const QString& surname) const {
     list<Person*> res;
     auto peopleItr = _people.begin();
     while (peopleItr != _people.end()) {
@@ -97,7 +97,7 @@ const std::list<Person*> Office::findByPhoneNumber(BigInt number) const {
     return res;
 }
 
-const std::vector<Person*>&  Office::peekPeople() const {
+std::vector<Person*>&  Office::peekPeople() {
     return _people;
 }
 

@@ -14,10 +14,11 @@ unsigned int Person::_freeID = 0;
 const int Person::Properties = 5; // id, name, surname, age, phoneNumbers
 list<unsigned long long> Person::allNumbers;
 
-Person::Person(const string& name, const string& surname, int age,
+Person::Person(const QString& name, const QString& surname, int age,
                unsigned long long phoneNumber) : _id(_freeID++), _name(name), _surname(surname), _age(age), _primaryNumber(phoneNumber) {
-    if (age < 0 || age > 135) throw invalid_argument("correct age [0;135]");
+    if (age < 0 || age > 135) throw invalid_argument("correct age is [0;135]");
     if (!phoneNumIsNew(phoneNumber)) throw invalid_argument("phone number duplicated");
+    _primaryNumber = phoneNumber;
     _phoneNumbers.push_back(phoneNumber);
     allNumbers.push_back(phoneNumber);
 }
@@ -32,42 +33,42 @@ bool Person::hasPhoneNumber(unsigned long long number) const {
     return false;
 }
 
-const char* Person::infoExtract() const {
-    string data;
-    data.append("ID: ").append(to_string(_id)).append("\n");
-    data.append("Name: ").append(_name).append("\n");
-    data.append("Surname: ").append(_surname).append("\n");
-    data.append("Age: ").append(to_string(_age)).append("\n");
-    for (size_t i = 0; i < _phoneNumbers.size(); i++)
-        data.append("Phone number #").append(to_string(i + 1)).append(": ")
-                .append(to_string(*next(_phoneNumbers.begin(), i))).append("\n");
-    char* result = new char[data.size() + 1];
-    strcpy_s(result, data.size() + 1, data.c_str());
-    return result;
-}
+//const char* Person::infoExtract() const {
+//    string data;
+//    data.append("ID: ").append(to_string(_id)).append("\n");
+//    data.append("Name: ").append(_name).append("\n");
+//    data.append("Surname: ").append(_surname).append("\n");
+//    data.append("Age: ").append(to_string(_age)).append("\n");
+//    for (size_t i = 0; i < _phoneNumbers.size(); i++)
+//        data.append("Phone number #").append(to_string(i + 1)).append(": ")
+//                .append(to_string(*next(_phoneNumbers.begin(), i))).append("\n");
+//    char* result = new char[data.size() + 1];
+//    strcpy_s(result, data.size() + 1, data.c_str());
+//    return result;
+//}
 
 bool operator==(const Person& p1, const Person& p2) {
     return p1.getId() == p2.getId();
 }
 
 ostream& operator<<(ostream& os, const Person& p) {
-    os << p.getName() << " " << p.getSurname() << " " << to_string(p.getAge()) << " years old";
+    os << p.getName().toStdString() << " " << p.getSurname().toStdString() << " " << to_string(p.getAge()) << " years old";
     return os;
 }
 
-const string& Person::getName() const {
+const QString& Person::getName() const {
     return _name;
 }
 
-void Person::setName(const string& name) {
+void Person::setName(const QString& name) {
     _name = name;
 }
 
-const string& Person::getSurname() const {
+const QString& Person::getSurname() const {
     return _surname;
 }
 
-void Person::setSurname(const string& surname) {
+void Person::setSurname(const QString& surname) {
     _surname = surname;
 }
 

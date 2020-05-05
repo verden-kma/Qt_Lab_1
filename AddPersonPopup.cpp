@@ -1,16 +1,23 @@
 #include "AddPersonPopup.h"
 #include "ui_custompopup.h"
 #include <QMessageBox>
+#include "office.h"
+#include "mainwindow.h"
 
 AddPersonPopup::AddPersonPopup(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::CustomPopup)
+    ui(new Ui::AddPersonPopup),
+    mw(*dynamic_cast<MainWindow*>(parent))
 {
     ui->setupUi(this);
-    QRegExp rx("^[A-Z][a-zA-Z]+$");
-    nameValidator = new QRegExpValidator(rx, this);
+    QRegExp rxName("^[A-Z][a-zA-Z]+$");
+    QRegExp rxNum("^\\d{11,13}$");
+    nameValidator = new QRegExpValidator(rxName, this);
+    numberValidator = new QRegExpValidator(rxNum, this);
+
     ui->nameText->setValidator(nameValidator);
     ui->surnameText->setValidator(nameValidator);
+    ui->phoneText->setValidator(numberValidator);
 }
 
 void AddPersonPopup::reject() {
@@ -23,6 +30,7 @@ AddPersonPopup::~AddPersonPopup()
 {
     delete ui;
     delete nameValidator;
+    delete numberValidator;
 }
 
 void AddPersonPopup::on_pushButton_clicked()
@@ -32,22 +40,27 @@ void AddPersonPopup::on_pushButton_clicked()
     QString surname = ui->surnameText->text();
     int age = ui->ageSpinBox->value();
     QString phoneNumber = ui->phoneText->text();
+    try {
+        mw.updateCustomers(name, surname, age, phoneNumber.toULongLong());
+    } catch (const std::invalid_argument& e) {
+        QMessageBox::critical(this, "Error", e.what());
+    }
 
-    clearInputs();
-    hide();
+
+   reject();
 }
 
 bool AddPersonPopup::checkNewCustomerData() {
     QString value = ui->nameText->text();
-    int len;
-    if (ui->nameText->validator()->validate(value, len)) {
-        QMessageBox::critical(this, "Error", len < 2 ? "Name is too short." : "Incorrect pattern.");
+    int len = ui->nameText->text().length();
+    if (len < 2 || len > 20) {
+        QMessageBox::critical(this, "Error", "Allowed name length is [2;20].");
         return false;
     }
 
-    value = ui->surnameText->text();
-    if (ui->nameText->validator()->validate(value, len)) {
-        QMessageBox::critical(this, "Error", len < 2 ? "Surname is too short." : "Incorrect pattern.");
+    len = ui->surnameText->text().length();
+    if (len < 2 || len > 20) {
+        QMessageBox::critical(this, "Error", "Allowed surname length is [2;20].");
         return false;
     }
 
@@ -57,11 +70,8 @@ bool AddPersonPopup::checkNewCustomerData() {
         return false;
     }
 
-    value = ui->phoneText->text();
-    QRegularExpression re("\\d{11,13}");
-    QRegularExpressionMatch match = re.match(value);
-    if (!match.hasMatch()) {
-        QMessageBox::critical(this, "Error", "Incorrect phone number pattern.");
+    if (ui->phoneText->text().length() < 11) {
+        QMessageBox::critical(this, "Error", "Allowed phone number length is [11;13].");
         return false;
     }
     return true;

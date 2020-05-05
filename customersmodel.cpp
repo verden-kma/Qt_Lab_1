@@ -29,9 +29,9 @@ QVariant CustomersModel::data(const QModelIndex& index, int role) const {
         case 0 :
             return p.getId();
         case 1:
-            return QString::fromStdString(p.getName());
+            return p.getName();
         case 2:
-            return QString::fromStdString(p.getSurname());
+            return p.getSurname();
         case 3:
             return p.getAge();
         case 4:
@@ -85,11 +85,41 @@ bool CustomersModel::setData(const QModelIndex &index, const QVariant &value, in
     return false;
 }
 
+bool CustomersModel::insertRows(int position, int rows, const QModelIndex &)
+{
+    beginInsertRows(QModelIndex(), position, position+rows-1);
+    for (int row = 0; row < rows; ++row) {
+        office->peekPeople().insert(office->peekPeople().begin() + row, new Person("<Empty>", "<Empty>", 0, 0));
+    }
+
+    endInsertRows();
+    return true;
+}
+
+bool CustomersModel::removeRows(int position, int rows, const QModelIndex &)
+{
+    beginRemoveRows(QModelIndex(), position, position+rows-1);
+    for (int row = 0; row < rows; ++row) {
+        Person* doomed = office->peekPeople().at(position);
+        delete doomed;  // delete pointed object
+        office->peekPeople().erase(office->peekPeople().begin() + position); // delete pointer
+    }
+
+    endRemoveRows();
+    return true;
+}
+
 const std::vector<Person*>& CustomersModel::peekCustomers() const {
     return office->peekPeople();
 }
 
+void CustomersModel::emitChange(const QModelIndex& index) {
+    emit dataChanged(index, index);
+}
 
+//void CustomersModel::UPDATE() {
+//    beginEdit();
+//}
 
 
 

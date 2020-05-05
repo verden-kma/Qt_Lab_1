@@ -2,13 +2,12 @@
 #include "ui_mainwindow.h"
 #include <iostream>
 #include <QMessageBox>
-#include <QDebug>
-#include "customersmodel.h"
-#include "office.h"
-#include "ComboboxItemDelegate.h"
-#include "AddPersonPopup.h"
-#include "PhoneEditor.h"
 #include <QStyleOptionViewItem>
+#include "ViewModels/CustomersModel.h"
+#include "Models/Office.h"
+#include "ViewModels/ComboboxItemDelegate.h"
+#include "Views/AddPersonPopup.h"
+#include "Views/PhoneEditor.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), model(new QAbstractTableModel*)
@@ -23,13 +22,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->customersTable->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->customersTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->customersTable->setItemDelegateForColumn(4, new ComboBoxItemDelegate((CustomersModel** const)(model), ui->customersTable));
-    //ComboBoxItemDelegate cbid((CustomersModel** const)(model), ui->customersTable);
-
-
-    //cbid.createEditor(this, QStyleOptionViewItem::Middle, ui->customersTable->model()->index(0,4));
-    //cbid.updateEditorGeometry();
-    //cbid.destroyEditor();
-   // ui->customersTable->update(0,0,0,0);
 }
 
 MainWindow::~MainWindow()
@@ -115,7 +107,6 @@ void MainWindow::updateCustomers(QString& name, QString surname, int age, unsign
 }
 
 void MainWindow::updateSelectedNumber() {
-    qDebug() << ui->customersTable->selectionModel()->hasSelection();
     int selectedRow = ui->customersTable->selectionModel()->selectedRows().first().row();
     QModelIndex index = ui->customersTable->model()->index(selectedRow, 4);
     dynamic_cast<CustomersModel*>(ui->customersTable->model())->emitChange(index);

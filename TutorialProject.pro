@@ -16,25 +16,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    AddPersonPopup.cpp \
-    ComboboxItemDelegate.cpp \
-    EditNumberModel.cpp \
-    PhoneEditor.cpp \
-    customersmodel.cpp \
+    Views/AddPersonPopup.cpp \
+    ViewModels/ComboboxItemDelegate.cpp \
+    ViewModels/CustomersModel.cpp \
+    ViewModels/EditNumberModel.cpp \
+    Views/PhoneEditor.cpp \
     main.cpp \
     mainwindow.cpp \
-    office.cpp \
-    person.cpp
+    Models/Office.cpp \
+    Models/Person.cpp
 
 HEADERS += \
-    AddPersonPopup.h \
-    ComboboxItemDelegate.h \
-    EditNumberModel.h \
-    PhoneEditor.h \
-    customersmodel.h \
+    Views/AddPersonPopup.h \
+    ViewModels/ComboboxItemDelegate.h \
+    ViewModels/CustomersModel.h \
+    ViewModels/EditNumberModel.h \
+    Views/PhoneEditor.h \
     mainwindow.h \
-    office.h \
-    person.h
+    Models/Office.h \
+    Models/Person.h
 
 FORMS += \
     AddPersonPopup.ui \

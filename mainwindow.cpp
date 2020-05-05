@@ -114,11 +114,10 @@ void MainWindow::updateCustomers(QString& name, QString surname, int age, unsign
     (**model).setData(prNumIndex, phNumber);
 }
 
-void MainWindow::updateSelectedNumber() const {
+void MainWindow::updateSelectedNumber() {
     qDebug() << ui->customersTable->selectionModel()->hasSelection();
     int selectedRow = ui->customersTable->selectionModel()->selectedRows().first().row();
-    QModelIndex index = ui->customersTable->model()->index(selectedRow, 5);
-    // emit ui->customersTable->model()->dataChanged(index, index);
+    QModelIndex index = ui->customersTable->model()->index(selectedRow, 4);
     dynamic_cast<CustomersModel*>(ui->customersTable->model())->emitChange(index);
 }
 

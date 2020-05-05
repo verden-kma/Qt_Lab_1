@@ -46,7 +46,6 @@ void AddPersonPopup::on_pushButton_clicked()
         QMessageBox::critical(this, "Error", e.what());
     }
 
-
    reject();
 }
 

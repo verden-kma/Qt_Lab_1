@@ -21,7 +21,7 @@ public:
 
     void updateCustomers(QString& name, QString surname, int age, unsigned long long phNumber);
 
-    void updateSelectedNumber() const;
+    void updateSelectedNumber();
 private slots:
     void on_addButton_clicked();
 

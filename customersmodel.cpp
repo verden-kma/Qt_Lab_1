@@ -117,9 +117,6 @@ void CustomersModel::emitChange(const QModelIndex& index) {
     emit dataChanged(index, index);
 }
 
-//void CustomersModel::UPDATE() {
-//    beginEdit();
-//}
 
 
 

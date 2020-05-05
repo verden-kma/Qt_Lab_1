@@ -56,9 +56,14 @@ void PhoneEditor::on_RemoveNumBtn_clicked()
 
 void PhoneEditor::on_OkBtn_clicked()
 {
+    qulonglong oldPrime = passedPerson->getPrimaryNumber();
     passedPerson->peekPhoneNumbers().clear();
-    for (int i = 0; i < editModel.rowCount(); i++)
+    for (int i = 0; i < editModel.rowCount(); i++) {
         passedPerson->peekPhoneNumbers().push_back(editModel.data(editModel.index(i), Qt::DisplayRole).toULongLong());
+    }
+    if (!editModel.containsNum(QString::number(oldPrime))) {
+        passedPerson->setPrimaryNumber(*passedPerson->peekPhoneNumbers().begin());
+    }
     static_cast<MainWindow *>(parent())->updateSelectedNumber();
     reject();
 }

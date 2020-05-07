@@ -2,7 +2,7 @@
 #include "ViewModels/CustomersModel.h"
 #include <QComboBox>
 
-ComboBoxItemDelegate::ComboBoxItemDelegate(CustomersModel** const model, QObject *parent)
+ComboBoxItemDelegate::ComboBoxItemDelegate(CustomersModel* const model, QObject *parent)
     : QStyledItemDelegate(parent), currModel(model)
 {
 }
@@ -16,7 +16,7 @@ QWidget *ComboBoxItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 {
     // Create the combobox and populate it
     QComboBox *cb = new QComboBox(parent);
-    Person* p = (**currModel).peekCustomers().at(index.row());
+    Person* p = currModel->peekCustomers().at(index.row());
 
     unsigned long long prNum = p->getPrimaryNumber();
     int cbIndex = 0;
@@ -41,7 +41,7 @@ void ComboBoxItemDelegate::setEditorData(QWidget *editor, const QModelIndex &ind
     if (cbIndex >= 0) {
        cb->setCurrentIndex(cbIndex);
        unsigned long long selectedNumber = std::strtoull(currentText.toStdString().c_str(), nullptr, 10);
-       (**currModel).setData(index, selectedNumber, Qt::EditRole);
+       currModel->setData(index, selectedNumber, Qt::EditRole);
     }
 }
 

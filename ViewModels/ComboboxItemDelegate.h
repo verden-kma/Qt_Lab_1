@@ -6,7 +6,7 @@ class CustomersModel;
 class ComboBoxItemDelegate : public QStyledItemDelegate
 {
 public:
-    ComboBoxItemDelegate(CustomersModel** const model, QObject *parent = nullptr);
+    ComboBoxItemDelegate(CustomersModel* const model, QObject *parent = nullptr);
     ~ComboBoxItemDelegate();
 
     QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
@@ -15,7 +15,7 @@ public:
     void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
 private:
-    CustomersModel** const currModel;
+    CustomersModel* const currModel;
 };
 
 #endif // COMBOBOXITEMDELEGATE_H

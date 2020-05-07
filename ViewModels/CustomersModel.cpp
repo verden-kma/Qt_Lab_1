@@ -1,4 +1,4 @@
-#include "customersmodel.h"
+#include "ViewModels/CustomersModel.h"
 
 CustomersModel::CustomersModel(Office* ofc, QObject* parent) : QAbstractTableModel(parent), office(ofc)
 {
@@ -100,11 +100,8 @@ bool CustomersModel::removeRows(int position, int rows, const QModelIndex &)
 {
     beginRemoveRows(QModelIndex(), position, position+rows-1);
     for (int row = position; row < rows + position; ++row) {
-        Person* doomed = office->peekPeople().at(position);
-        delete doomed;  // delete pointed object
-        office->peekPeople().erase(office->peekPeople().begin() + position); // delete pointer
+        office->peekPeople().erase(office->peekPeople().begin() + position); // delete pointer to Person
     }
-
     endRemoveRows();
     return true;
 }

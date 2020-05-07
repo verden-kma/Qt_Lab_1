@@ -3,9 +3,8 @@
 
 
 #include <vector>
+#include <QVariant>
 #include "Models/Person.h"
-
-using BigInt = unsigned long long;
 
 class Office {
 public:
@@ -16,21 +15,25 @@ public:
 
     void addPerson(Person*);
 
-    const std::list<Person*> findByID(unsigned int id) const; // had to be optional, but empty list has wider support
+    const std::list<Person*> findByID(const QVariant); // had to be optional, but empty list has a wider support
 
-    const std::list<Person*> findByName(const QString&) const;
+    const std::list<Person*> findByName(const QVariant);
 
-    const std::list<Person*> findBySurname(const QString&) const;
+    const std::list<Person*> findBySurname(const QVariant);
 
-    const std::list<Person*> findByPhoneNumber(BigInt number) const;
+    const std::list<Person*> findByAge(const QVariant);
 
-    const std::list<Person*> findByAge(int age) const;
+    const std::list<Person*> findByPhoneNumber(const QVariant);
 
-    std::vector<Person*> getPeople() const;
+    using FilterFunc = const std::list<Person*> (Office::* const) (const QVariant);
 
     std::vector<Person*>& peekPeople();
 
     bool remove(const Person*);
+
+    bool remove(uint);
+
+    void clearShellow();
 
     friend std::ostream& operator<<(std::ostream&, const Office&);
 

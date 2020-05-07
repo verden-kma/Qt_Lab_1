@@ -2,6 +2,8 @@
 #define FILTERPOPUP_H
 
 #include <QDialog>
+#include <QRegularExpression>
+#include "mainwindow.h"
 
 namespace Ui {
 class FilterPopup;
@@ -16,8 +18,16 @@ public:
     ~FilterPopup();
 
     void reject() override;
+private slots:
+    void on_applyFilterBtn_clicked();
+
+    void on_cancelFilter_clicked();
+
 private:
     Ui::FilterPopup *ui;
+    QRegularExpression numRX;
+    QRegularExpression nameRX;
+    MainWindow* mw;
 };
 
 #endif // FILTERPOPUP_H

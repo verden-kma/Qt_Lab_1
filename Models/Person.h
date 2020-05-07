@@ -1,6 +1,7 @@
 #ifndef PROJECTOOP_PERSON_H
 #define PROJECTOOP_PERSON_H
 
+#include <unordered_set>
 #include <list>
 #include <QString>
 
@@ -10,7 +11,9 @@ public:
 
     Person(const QString& name, const QString& surname, int age, unsigned long long phoneNumber);
 
-    unsigned long long getId() const;
+    ~Person();
+
+    uint getId() const;
 
     bool hasPhoneNumber(unsigned long long number) const;
 
@@ -33,31 +36,31 @@ public:
      * @param nprn new prime number
      * @return true if passed number is new, false if it is present in phoneNumberList
      */
-    bool setPrimaryNumber(unsigned long long int nprn);
+    bool setPrimaryNumber(qulonglong nprn);
 
-    bool addPhoneNumber(unsigned long long int newNumber);
+    bool addPhoneNumber(qulonglong newNumber);
 
-    bool removePhoneNumber(unsigned long long int number);
+    bool removePhoneNumber(qulonglong number);
 
-    std::list<unsigned long long int>& peekPhoneNumbers();
+    std::list<qulonglong>& peekPhoneNumbers();
 
     //const char* infoExtract() const;
 
     static bool numberIsValid(const QString&);
 
 private:
-    static unsigned int _freeID;
-    static std::list<unsigned long long> allNumbers;
+    static uint _freeID;
+    static std::unordered_set<qulonglong> allNumbers;
 
-    static bool phoneNumIsNew(unsigned long long int newNumber);
+    static bool phoneNumIsNew(qulonglong newNumber);
 
-    unsigned int _id;
+    uint _id;
     QString _name;
     QString _surname;
     unsigned char _age;
-    unsigned long long _primaryNumber;
+    qulonglong _primaryNumber;
 
-    std::list<unsigned long long> _phoneNumbers;
+    std::list<qulonglong> _phoneNumbers;
 };
 
 bool operator==(const Person&, const Person&);

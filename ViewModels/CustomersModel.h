@@ -19,7 +19,6 @@ public:
     const std::vector<Person*>& peekCustomers() const;
 
     void emitChange(const QModelIndex&);
-    //void UPDATE();
 private:
     Office* office;
 };

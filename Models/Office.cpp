@@ -33,11 +33,17 @@ bool Office::remove(const Person* p) {
     return false;
 }
 
-const list<Person*> Office::findByID(unsigned int id) const {
+bool Office::remove(uint index) {
+    if (_people.size() >= index) return false;
+    _people.erase(_people.begin() + index);
+    return true;
+}
+
+const list<Person*> Office::findByID(const QVariant id) {
     list<Person*> res;
     auto peopleItr = _people.begin();
     while (peopleItr != _people.end()) {
-        if ((*peopleItr)->getId() == id) {
+        if ((*peopleItr)->getId() == id.toUInt()) {
             res.push_back(*peopleItr);
             return res;
         }
@@ -46,22 +52,22 @@ const list<Person*> Office::findByID(unsigned int id) const {
     return res;
 }
 
-const list<Person*> Office::findByName(const QString& name) const {
+const list<Person*> Office::findByName(const QVariant name) {
     list<Person*> res;
     auto peopleItr = _people.begin();
     while (peopleItr != _people.end()) {
-        if ((*peopleItr)->getName() == name)
+        if ((*peopleItr)->getName() == name.toString())
             res.push_back(*peopleItr);
         peopleItr++;
     }
     return res;
 }
 
-const list<Person*> Office::findBySurname(const QString& surname) const {
+const list<Person*> Office::findBySurname(const QVariant surname) {
     list<Person*> res;
     auto peopleItr = _people.begin();
     while (peopleItr != _people.end()) {
-        if ((*peopleItr)->getSurname() == surname)
+        if ((*peopleItr)->getSurname() == surname.toString())
             res.push_back(*peopleItr);
         peopleItr++;
     }
@@ -69,22 +75,22 @@ const list<Person*> Office::findBySurname(const QString& surname) const {
 }
 
 
-const list<Person*> Office::findByAge(int age) const {
+const list<Person*> Office::findByAge(const QVariant age) {
     list<Person*> res;
     auto peopleItr = _people.begin();
     while (peopleItr != _people.end()) {
-        if ((*peopleItr)->getAge() == age)
+        if ((*peopleItr)->getAge() == age.toInt())
             res.push_back(*peopleItr);
         peopleItr++;
     }
     return res;
 }
 
-const std::list<Person*> Office::findByPhoneNumber(BigInt number) const {
+const std::list<Person*> Office::findByPhoneNumber(const QVariant number) {
     list<Person*> res;
     auto peopleItr = _people.begin();
     while (peopleItr != _people.end()) {
-        if ((*peopleItr)->hasPhoneNumber(number)) {
+        if ((*peopleItr)->hasPhoneNumber(number.toULongLong())) {
             res.push_back(*peopleItr);
             return res;
         }
@@ -93,11 +99,7 @@ const std::list<Person*> Office::findByPhoneNumber(BigInt number) const {
     return res;
 }
 
-std::vector<Person*>&  Office::peekPeople() {
-    return _people;
-}
-
-std::vector<Person*> Office::getPeople() const {
+std::vector<Person*>& Office::peekPeople() {
     return _people;
 }
 
@@ -109,3 +111,27 @@ std::ostream& operator<<(std::ostream& os, const Office& secOff) {
     }
     return os;
 }
+
+void Office::clearShellow() {
+    _people.clear();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

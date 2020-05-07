@@ -10,7 +10,7 @@ public:
     EditNumberModel(QObject *parent = nullptr);
     ~EditNumberModel() = default;
 
-    void resetPersonNumbers(const std::list<unsigned long long>& phNums); // todo: use defencive copy in case user decides to abort changes
+    void resetPersonNumbers(const std::list<unsigned long long>& phNums);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role) const override;
